@@ -36,8 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Docati.Api">
-      <HintPath>..\..\..\Dropbox\Sources\Workspace\Docati\OnPremise\flexdoc\Api\bin\Debug\Docati.Api.dll</HintPath>
+    <Reference Include="Docati.Api, Version=3.6.0.0, Culture=neutral, PublicKeyToken=cb46ba9516374411, processorArchitecture=MSIL">
+      <HintPath>packages\Docati.Api.3.6.3-alpha\lib\net40-Client\Docati.Api.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -59,11 +60,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="License.lic" />
-    <None Include="packages.config" />
     <EmbeddedResource Include="Template.docx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="data.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

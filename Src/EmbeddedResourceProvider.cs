@@ -9,35 +9,40 @@ using System.Threading.Tasks;
 
 namespace Docati.Api.Demo
 {
+    /// <summary>
+    /// Resource provider that supports loading of embedded resources
+    /// </summary>
     public class EmbeddedResourceProvider : ResourceProvider
     {
         private readonly string asmPath;
 
         public EmbeddedResourceProvider()
-            : base(new Uri(@"emb://", UriKind.Absolute), true) // BaseUri is set to 'emb://Docati.Api.Demo/'
+            : base(new Uri(@"emb://" + Assembly.GetExecutingAssembly().GetName().Name + "/", UriKind.Absolute), true) // BaseUri is set to 'emb://Docati.Api.Demo/'
         {
-            asmPath = Assembly.GetExecutingAssembly().GetName().Name;
+            asmPath = Assembly.GetExecutingAssembly().GetName().Name; // Cannot grab from BasePath, since the Uri-class changes it to lower case
         }
 
         public override ResourceStream GetResource(Uri resourceUri)
         {
-            var isEmbedded = !resourceUri.IsAbsoluteUri
-                || resourceUri.AbsoluteUri.StartsWith(this.BaseUri.AbsoluteUri, StringComparison.OrdinalIgnoreCase);
-            if (isEmbedded)
+            var mayBeEmbeddedResource = !resourceUri.IsAbsoluteUri // We cannot be sure when the resource name is relative
+                || this.BaseUri.IsBaseOf(resourceUri);
+
+            if (mayBeEmbeddedResource)
             {
-                string embeddedResourceName = !resourceUri.IsAbsoluteUri
-                    ? resourceUri.OriginalString
-                    : resourceUri.PathAndQuery;
+                var relResourceUri = resourceUri.IsAbsoluteUri ? this.BaseUri.MakeRelativeUri(resourceUri) : resourceUri;
 
-                string fullEmbeddedResourceName = asmPath + "." + embeddedResourceName;
-                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fullEmbeddedResourceName);
-                if (stream == null)
-                    throw new FileNotFoundException("The embedded resource does not exist", fullEmbeddedResourceName);
+                string embeddedResourceName = asmPath
+                    + (relResourceUri.OriginalString[0] == '/' ? string.Empty : ".")
+                    + relResourceUri.OriginalString.Replace('/', '.');
 
-                return base.GetResource(resourceUri, stream);
+                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(embeddedResourceName);
+                if (stream != null) // Yep, turn out it exists!
+                    return base.GetResource(resourceUri, stream);
+
+                // If it fails to load, we just continue. It may be a regular resource after all.
             }
-            else
-                return base.GetResource(resourceUri);
+
+            return base.GetResource(resourceUri);
         }
     }
 }

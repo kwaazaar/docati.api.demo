@@ -37,6 +37,7 @@ namespace Docati.Api.Demo
             }
 
             // Now load the generated document with the default program for the file extension
+            // NB: This will fail if you don't have Word, Adobe Reader, etc installed!
             Process.Start(outputFilename);
         }
     }

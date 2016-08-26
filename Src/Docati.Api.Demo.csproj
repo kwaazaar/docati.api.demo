@@ -36,8 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Docati.Api, Version=3.6.0.0, Culture=neutral, PublicKeyToken=cb46ba9516374411, processorArchitecture=MSIL">
-      <HintPath>packages\Docati.Api.3.6.4-alpha\lib\net40-Client\Docati.Api.dll</HintPath>
+    <Reference Include="Docati.Api, Version=3.6.4905.0, Culture=neutral, PublicKeyToken=cb46ba9516374411, processorArchitecture=MSIL">
+      <HintPath>packages\Docati.Api.3.6.4905.0\lib\net40-Client\Docati.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

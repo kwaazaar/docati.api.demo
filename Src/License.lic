@@ -1,3 +1,1 @@
-Replace this file with a real license file. Make sure to set its build action to 'Embedded Resource', so that it is packed inside the assembly.
-
-If you don't have a license file, you can obtain a trial license by contacting support@docati.com.
+<DocatiLicense xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Company>Nuget Trial</Company><NativeFormatOnly>false</NativeFormatOnly><SingleLocation>true</SingleLocation><ImportTemplateSupported>false</ImportTemplateSupported><Trial>true</Trial><ValidFrom>2016-08-25T00:00:00</ValidFrom><ValidUntil>2016-09-30T00:00:00</ValidUntil><LicenseCreated>2016-08-26T00:00:00</LicenseCreated><Key>suv0gah059qs4dxzfqgxrup1erxbj0hu</Key></DocatiLicense>

@@ -32,7 +32,7 @@ namespace Docati.Api.Demo
                 using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml")) // Just like the license file, the data file is loaded from embedded resource as well
                     builder.Build(data, DataFormat.Xml, doc, null, docFormat);
 
-                // doc now contains the final document, so let's write it to disk (change the extension if you 
+                // doc now contains the final document, so let's write it to disk
                 File.WriteAllBytes(outputFilename, doc.ToArray()); // Check your bin/debug folder!
             }
 

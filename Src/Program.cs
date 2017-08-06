@@ -5,6 +5,7 @@ using System.Reflection;
 namespace Docati.Api.Demo
 {
     // Make sure you restore any missing NuGet-package before compilation.
+    // NB: Docati.Api requires .NET Framework 4.5.1 or later!
     class Program
     {
         static void Main(string[] args)

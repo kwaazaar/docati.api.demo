@@ -32,11 +32,13 @@ namespace Docati.Api.Demo
             // A memorystream is defined to hold the final document
             using (var doc = new MemoryStream())
             {
+                string password = null; // Specify a password to encrypt the final document (password is required to open the document)
+
                 // Although this code generates a single document, the created DocBuilder can be reused to create multiple documents. It will cache all loaded templates,
                 // so they do not need to be loaded for every call to Build.
                 using (var builder = new DocBuilder("Template.docx", resourceProvider))
                 using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml")) // Just like the license file, the data file is loaded from embedded resource as well
-                    builder.Build(data, DataFormat.Xml, doc, null, docFormat);
+                    builder.Build(data, DataFormat.Xml, doc, null, docFormat, password);
 
                 // doc now contains the final document, so let's write it to disk
                 File.WriteAllBytes(outputFilename, doc.ToArray()); // Check your bin/debug folder!

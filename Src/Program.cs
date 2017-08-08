@@ -20,8 +20,9 @@ namespace Docati.Api.Demo
                 License.ApplyLicense(licenseStream);
             }
 
-            // A custom resource provider is used, to be able to load templates (and whatever resources they need!) from embedded resources.
-            // The standard ResoureProvider supports loading from disk and web/http addresses only, so it will not suffice
+            // The EmbeddedResourceProvider is used, since it's able to load templates (and whatever resources they need) from resources
+            // embedded in this assembly. It derives from the standard ResoureProvider which supports loading from disk, network-folders
+            // and web/http addresses.
             var resourceProvider = new EmbeddedResourceProvider();
 
             // Set the desired output format

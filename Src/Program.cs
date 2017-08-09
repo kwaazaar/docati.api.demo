@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -20,10 +21,13 @@ namespace Docati.Api.Demo
                 License.ApplyLicense(licenseStream);
             }
 
-            // The EmbeddedResourceProvider is used, since it's able to load templates (and whatever resources they need) from resources
-            // embedded in this assembly. It derives from the standard ResoureProvider which supports loading from disk, network-folders
-            // and web/http addresses.
-            var resourceProvider = new EmbeddedResourceProvider();
+            // The base-uri provided as the first argument to the resourceprovider contains arguments. When retrieving resources, like the template itself
+            // or any of its required resources (like images), the constructed full uri to the resource will have this same querystring.
+            // In this example, the BaseUri points to a secured Azure storage account (blob container) and the querystring is used to provide the
+            // required credentials to authenticate (Shared Access Signature (SAS)-token).
+            var resourceProvider = new ResourceProvider(
+                new Uri("https://docati1.blob.core.windows.net/private/?sv=2016-05-31&ss=b&srt=co&sp=r&se=2018-06-09T23:59:19Z&st=2017-04-02T15:59:19Z&spr=https&sig=HQiAyvXhg7fst8WXTmRDY2ytj00dqP%2B0Xolhr24Fw9A%3D"),
+                false);
 
             // Set the desired output format
             var docFormat = DocumentFileFormat.SameAsTemplate;
@@ -36,8 +40,8 @@ namespace Docati.Api.Demo
 
                 // Although this code generates a single document, the created DocBuilder can be reused to create multiple documents. It will cache all loaded templates,
                 // so they do not need to be loaded for every call to Build.
-                using (var builder = new DocBuilder("Template.docx", resourceProvider))
-                using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml")) // Just like the license file, the data file is loaded from embedded resource as well
+                using (var builder = new DocBuilder("ImageOfTest.docx", resourceProvider))
+                using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.ImageOfTest.xml")) // Just like the license file, the data file is loaded from embedded resource as well
                     builder.Build(data, DataFormat.Xml, doc, null, docFormat, password);
 
                 // doc now contains the final document, so let's write it to disk

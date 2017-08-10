@@ -26,7 +26,7 @@ namespace Docati.Api.Demo
             var resourceProvider = new EmbeddedResourceProvider();
 
             // Set the desired output format
-            var docFormat = DocumentFileFormat.SameAsTemplate;
+            var docFormat = DocumentFileFormat.PDF;
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.PDF ? "pdf" : "docx");
 
             // A memorystream is defined to hold the final document

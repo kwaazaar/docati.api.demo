@@ -10,15 +10,19 @@ namespace Docati.Api.Demo
     {
         static void Main(string[] args)
         {
+            /*
             // The license is included in this project is an embedded resource (build-action). Make sure you replace it with your own.
-            // Contact us at support@docati.com and ask for a trial license, if you're just evaluating Docati.
-
             // The license only needs to be applied once in the app-domain, eg in a static constructor or inside an owin-startup class.
             using (var licenseStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.License.lic"))
             {
                 // If licenseStream is null here, License.lic could not be found in the assembly. Did you set its buildaction to 'Embedded Resource'?
                 License.ApplyLicense(licenseStream);
             }
+            */
+
+            // In this sample, we will use the free license, instead of the embedded license file. If you want to evaluate Docati without
+            // limitations, please don't hesitate to contact us at support@docati.com and request a trial license.
+            License.ApplyLicense("free"); // Check https://www.docati.com/pricing for more licensing details
 
             // The EmbeddedResourceProvider is used, since it's able to load templates (and whatever resources they need) from resources
             // embedded in this assembly. It derives from the standard ResoureProvider which supports loading from disk, network-folders

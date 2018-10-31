@@ -44,12 +44,15 @@ namespace Docati.Api.Demo
                 using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml")) // Just like the license file, the data file is loaded from embedded resource as well
                     builder.Build(data, DataFormat.Xml, doc, null, docFormat, password);
 
+                // Please note: For netcoreapp2.1/netstandard2.0-usage, PDF format will fail. This is a known limitation of the PDF-library used by Docati and may be resolved in the future.
+                // Use .NET Framework 4.6.1 (net461) or later as target platform (Windows only) when you need PDF.
+
                 // doc now contains the final document, so let's write it to disk
                 File.WriteAllBytes(outputFilename, doc.ToArray()); // Check your bin/debug folder!
             }
 
             // Now load the generated document with the default program for the file extension
-            // NB: This will fail if you don't have Word, Adobe Reader, etc installed!
+            // NB: This will fail if you don't have Word, Adobe Reader, etc installed. In that case, you can locate the file yourself in the bin/Debug folder.
             Process.Start(outputFilename);
         }
     }

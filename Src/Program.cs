@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -24,10 +25,9 @@ namespace Docati.Api.Demo
             // limitations, please don't hesitate to contact us at support@docati.com and request a trial license.
             License.ApplyLicense("free"); // Check https://www.docati.com/pricing for more licensing details
 
-            // The EmbeddedResourceProvider is used, since it's able to load templates (and whatever resources they need) from resources
-            // embedded in this assembly. It derives from the standard ResoureProvider which supports loading from disk, network-folders
-            // and web/http addresses.
-            var resourceProvider = new EmbeddedResourceProvider();
+            // The standard ResourceProvider is used which reads the template from the current directory (eg: your bin/debug folder when you press F5).
+            // The Template.docx has 'Copy to Output Directory' enabled to ensure the file is actually there.
+            var resourceProvider = new ResourceProvider(new Uri(Environment.CurrentDirectory), false); // set allowExternalResources to true to enable loading templates outside the baseUri
 
             // Set the desired output format
             var docFormat = DocumentFileFormat.PDF;

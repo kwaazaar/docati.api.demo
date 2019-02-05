@@ -52,7 +52,8 @@ namespace Docati.Api.Demo
             }
 
             // Now load the generated document with the default program for the file extension
-            // NB: This will fail if you don't have Word, Adobe Reader, etc installed. In that case, you can locate the file yourself in the bin/Debug folder.
+            // NB: This will fail if you don't have Word, Adobe Reader, etc installed or when running under .NET Core.
+            // The wás created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
             Process.Start(outputFilename);
         }
     }

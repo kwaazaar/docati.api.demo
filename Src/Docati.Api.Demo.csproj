@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net461;netcoreapp2.1</TargetFrameworks>
-    <RuntimeIdentifiers>win10-x64;ubuntu.18.04-x64</RuntimeIdentifiers>
+    <TargetFrameworks>net461</TargetFrameworks> <!-- In the future netcoreapp can be specified here as well, although for .NET Core Docati will not support the PDF format. -->
+    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Docati.Api" Version="5.2.1624-beta1" />
+    <PackageReference Include="Docati.Api" Version="5.1.9417" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Docati.Api.Demo
@@ -42,7 +44,12 @@ namespace Docati.Api.Demo
                 // so they do not need to be loaded for every call to Build.
                 using (var builder = new DocBuilder("Template.docx", resourceProvider))
                 using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml")) // Just like the license file, the data file is loaded from embedded resource as well
-                    builder.Build(data, DataFormat.Xml, doc, null, docFormat, password);
+                {
+                    var processingLog = new ProcessingLog();
+                    builder.Build(data, DataFormat.Xml, doc, processingLog, docFormat, password);
+                    Console.WriteLine($"{processingLog.Count} entries found, {processingLog.Count(l => l.ProcessingResult == ProcessingResultType.Warning)} warning(s), {processingLog.Count(l => l.ProcessingResult == ProcessingResultType.Error)} error(s).");
+                    processingLog.ForEach(l => Console.WriteLine($"{l.ElementName} - {l.ElementType} ({l.ProcessingResult}): {l.ProcessingDetails} ({l.QueryResult})"));
+                }
 
                 // Please note: For netcoreapp2.1/netstandard2.0-usage, PDF format will fail. This is a known limitation of the PDF-library used by Docati and may be resolved in the future.
                 // Use .NET Framework 4.6.1 (net461) or later as target platform (Windows only) when you need PDF.

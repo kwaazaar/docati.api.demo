@@ -48,7 +48,7 @@ namespace Docati.Api.Demo
                     var processingLog = new ProcessingLog();
                     builder.Build(data, DataFormat.Xml, doc, processingLog, docFormat, password);
                     Console.WriteLine($"{processingLog.Count} entries found, {processingLog.Count(l => l.ProcessingResult == ProcessingResultType.Warning)} warning(s), {processingLog.Count(l => l.ProcessingResult == ProcessingResultType.Error)} error(s).");
-                    processingLog.ForEach(l => Console.WriteLine($"{l.ElementName} - {l.ElementType} ({l.ProcessingResult}): {l.ProcessingDetails} ({l.QueryResult})"));
+                    processingLog.ForEach(l => Console.WriteLine($"{l.ElementName} - {l.ElementType} ({l.ProcessingResult}): {l.QueryResult} {l.ProcessingDetails}"));
                 }
 
                 // Please note: For netcoreapp2.1/netstandard2.0-usage, PDF format will fail. This is a known limitation of the PDF-library used by Docati and may be resolved in the future.

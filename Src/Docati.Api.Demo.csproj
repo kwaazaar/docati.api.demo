@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Docati.Api" Version="5.1.9417" />
+    <PackageReference Include="Docati.Api" Version="5.1.9674-beta" />
   </ItemGroup>
 
 </Project>

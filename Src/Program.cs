@@ -29,9 +29,9 @@ namespace Docati.Api.Demo
             // and web/http addresses.
             var resourceProvider = new EmbeddedResourceProvider();
 
-            // Set the desired output format
+            // Set the desired output format (warning: XPS-format is experimental and therefore not supported)
             var docFormat = DocumentFileFormat.PDF;
-            var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.PDF ? "pdf" : "docx");
+            var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
 
             // A memorystream is defined to hold the final document
             using (var doc = new MemoryStream())

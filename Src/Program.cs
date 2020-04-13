@@ -29,7 +29,7 @@ namespace Docati.Api.Demo
             // and web/http addresses.
             var resourceProvider = new EmbeddedResourceProvider();
 
-            // Set the desired output format (warning: XPS-format is experimental and therefore not supported)
+            // Set the desired output format (Word, PDF or XPS)
             var docFormat = DocumentFileFormat.PDF;
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
 

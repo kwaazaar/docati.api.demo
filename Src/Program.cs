@@ -1,14 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
 namespace Docati.Api.Demo
 {
-    // Make sure you restore any missing NuGet-package before compilation.
-    // NB: Docati.Api requires .NET Framework 4.6.1 or later!
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             /*
             // The license is included in this project is an embedded resource (build-action). Make sure you replace it with your own.
@@ -29,7 +28,7 @@ namespace Docati.Api.Demo
             // and web/http addresses.
             var resourceProvider = new EmbeddedResourceProvider();
 
-            // Set the desired output format (Word, PDF or XPS)
+            // Set the desired output format (Word, PDF or XPS) -- XPS only works when targeting .NET Full framework (4.6.1 or later), not on .NET Core
             var docFormat = DocumentFileFormat.PDF;
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
 
@@ -44,17 +43,17 @@ namespace Docati.Api.Demo
                 using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml")) // Just like the license file, the data file is loaded from embedded resource as well
                     builder.Build(data, DataFormat.Xml, doc, null, docFormat, password);
 
-                // Please note: For netcoreapp2.1/netstandard2.0-usage, PDF format will fail. This is a known limitation of the PDF-library used by Docati and may be resolved in the future.
-                // Use .NET Framework 4.6.1 (net461) or later as target platform (Windows only) when you need PDF.
-
                 // doc now contains the final document, so let's write it to disk
                 File.WriteAllBytes(outputFilename, doc.ToArray()); // Check your bin/debug folder!
             }
 
-            // Now load the generated document with the default program for the file extension
-            // NB: This will fail if you don't have Word, Adobe Reader, etc installed or when running under .NET Core.
-            // The wás created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
-            Process.Start(outputFilename);
+            // Now try to load the generated document with the default program for the file extension
+            // This will fail if you don't have Word, Adobe Reader, etc installed.
+            // The file created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                Process.Start(outputFilename);
+
+            Console.WriteLine($"{outputFilename} was successfully generated.");
         }
     }
 }

@@ -1,30 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>net461</TargetFrameworks> <!-- In the future netcoreapp can be specified here as well, although for .NET Core Docati will not support the PDF format. -->
-    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>net461;net5.0</TargetFrameworks>
+		<RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="data.xml" />
-    <None Remove="License.lic" />
-    <None Remove="Template.docx" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Docati.Api" Version="5.3.2721-beta" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="data.xml" />
-    <EmbeddedResource Include="License.lic" />
-    <EmbeddedResource Include="Template.docx" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="data.xml" />
+		<None Remove="License.lic" />
+		<None Remove="Template.docx" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="data.xml" />
+		<EmbeddedResource Include="License.lic" />
+		<EmbeddedResource Include="Template.docx" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Docati.Api" Version="5.2.2236" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Properties\" />
+	</ItemGroup>
 
 </Project>
 

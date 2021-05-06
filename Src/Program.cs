@@ -11,6 +11,7 @@ namespace Docati.Api.Demo
         {
             /*
             // The license is included in this project is an embedded resource (build-action). Make sure you replace it with your own.
+            // NB: We sometimes replace it with a temporary trial license, so you may want to see if it just works.
             // The license only needs to be applied once in the app-domain, eg in a static constructor or inside an owin-startup class.
             using (var licenseStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.License.lic"))
             {

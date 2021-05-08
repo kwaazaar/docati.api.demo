@@ -7,7 +7,7 @@ namespace Docati.Api.Demo
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
             /*
             // The license is included in this project is an embedded resource (build-action). Make sure you replace it with your own.
@@ -32,6 +32,10 @@ namespace Docati.Api.Demo
             // Set the desired output format (Word, PDF or XPS) -- XPS only works when targeting .NET Full framework (4.6.1 or later), not on .NET Core
             var docFormat = DocumentFileFormat.PDF;
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
+            if (args.Length > 0) // Outputfolder specified
+            {
+                outputFilename = Path.Join(args[0], outputFilename);
+            }
 
             // A memorystream is defined to hold the final document
             using (var doc = new MemoryStream())

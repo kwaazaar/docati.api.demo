@@ -4,10 +4,14 @@
 		<OutputType>Exe</OutputType>
 		<TargetFrameworks>net461;net5.0</TargetFrameworks>
 		<RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+	    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Docati.Api" Version="6.0.3019" />
+	    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
 	</ItemGroup>
 
 	<ItemGroup>

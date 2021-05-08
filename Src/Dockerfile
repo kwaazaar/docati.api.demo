@@ -10,7 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR "/src/Docati.Api.Demo"
 COPY ["Src/Docati.Api.Demo.csproj", "Docati.Api.Demo.csproj"]
 RUN dotnet restore "Docati.Api.Demo.csproj"
-COPY Src/* .
+COPY Src/ ./
 RUN dotnet build -f net5.0 -r linux-x64 "Docati.Api.Demo.csproj" -c Release -o /app/build
 
 FROM build AS publish

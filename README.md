@@ -14,5 +14,9 @@ From the repo root run: docker build -t docatidemo -f Src/Dockerfile .
 To run from Linux (or WSL): docker run -rm -v $PWD:/out docatidemo /out
 - The generated template will be put in your current folder
 
+## Running ready-made image
+The image is also available from Docker Hub: [kwaazaar/docatidemo](https://hub.docker.com/repository/docker/kwaazaar/docatidemo)
+To run: docker run -v $PWD:/out kwaazaar/docatidemo /out
+
 Check our site for more info on Docati: https://www.docati.com
 And if you run into trouble, don't hesitate to ask us for help: support@docati.com

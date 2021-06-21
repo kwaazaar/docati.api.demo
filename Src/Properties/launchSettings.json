@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Docati.Api.Demo": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

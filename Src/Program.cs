@@ -34,7 +34,7 @@ namespace Docati.Api.Demo
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
             if (args.Length > 0) // Outputfolder specified
             {
-                outputFilename = Path.Join(args[0], outputFilename);
+                outputFilename = Path.Combine(args[0], outputFilename);
             }
 
             // A memorystream is defined to hold the final document
@@ -55,8 +55,10 @@ namespace Docati.Api.Demo
             // Now try to load the generated document with the default program for the file extension
             // This will fail if you don't have Word, Adobe Reader, etc installed.
             // The file created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
+#if !NET // Doesn't work on .NET 5
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 Process.Start(outputFilename);
+#endif
 
             Console.WriteLine($"{outputFilename} was successfully generated.");
         }

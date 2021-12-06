@@ -1,18 +1,16 @@
 ﻿# buster-slim fixed because of required font packages
-FROM mcr.microsoft.com/dotnet/runtime:5.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/runtime:6.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR "/src/Docati.Api.Demo"
 COPY ["Src/Docati.Api.Demo.csproj", "Docati.Api.Demo.csproj"]
 RUN dotnet restore "Docati.Api.Demo.csproj"
 COPY Src/ ./
-RUN dotnet build -f net5.0 -r linux-x64 "Docati.Api.Demo.csproj" -c Release -o /app/build
+RUN dotnet build -f net6.0 -r linux-x64 "Docati.Api.Demo.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish -f net5.0 -r linux-x64 "Docati.Api.Demo.csproj" -c Release -o /app/publish
+RUN dotnet publish -f net6.0 -r linux-x64 "Docati.Api.Demo.csproj" -c Release -o /app/publish
 
 
 FROM base AS final

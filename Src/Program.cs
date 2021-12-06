@@ -55,10 +55,8 @@ namespace Docati.Api.Demo
             // Now try to load the generated document with the default program for the file extension
             // This will fail if you don't have Word, Adobe Reader, etc installed.
             // The file created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
-#if !NET // Doesn't work on .NET 5
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 Process.Start(outputFilename);
-#endif
 
             Console.WriteLine($"{outputFilename} was successfully generated.");
         }

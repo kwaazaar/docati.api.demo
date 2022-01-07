@@ -10,7 +10,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Docati.Api" Version="6.0.3776" />
+		<PackageReference Include="Docati.Api" Version="6.0.4142" />
 	    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
 	</ItemGroup>
 

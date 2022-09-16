@@ -7,11 +7,12 @@
 	    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Docati.Api" Version="6.0.4142" />
-	    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+	    <PackageReference Include="Docati.Api" Version="6.1.4718-beta" />
+	    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.0" />
 	</ItemGroup>
 
 	<ItemGroup>

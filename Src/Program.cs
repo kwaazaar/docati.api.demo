@@ -32,16 +32,14 @@ namespace Docati.Api.Demo
             // Set the desired output format (Word, PDF or XPS) -- XPS only works when targeting .NET Full framework (4.6.1 or later), not on .NET Core
             var docFormat = DocumentFileFormat.PDF;
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
-            if (args.Length > 0) // Outputfolder specified
-            {
-                outputFilename = Path.Combine(args[0], outputFilename);
-            }
+            var outputFolder = args.Length > 0 ? args[0] : Environment.CurrentDirectory;
+            outputFilename = Path.Combine(outputFolder, outputFilename);
 
             // Just like the license file, the data file is loaded from embedded resource as well. This can of course be any stream
             using var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml");
 
             // Although this code generates a single document, the created DocBuilder can be reused to create multiple documents. It will cache all loaded templates,
-            // so they do not need to be loaded for every call to Build.
+            // so they do not need to be loaded for every call to BuildAsync.
             using var builder = await DocBuilder.ForTemplateAsync("Template.docx");
 
             // Generate the document using the builder and passing the data for the dynamic fields (Docati placeholders)
@@ -51,13 +49,13 @@ namespace Docati.Api.Demo
             using (var outputStream = File.OpenWrite(outputFilename))
                 await doc.CopyToAsync(outputStream); // Check your bin/debug folder!
 
+            Console.WriteLine($"{outputFilename} was successfully generated.");
+
             // Now try to load the generated document with the default program for the file extension
             // This will fail if you don't have Word, Adobe Reader, etc installed.
             // The file created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 Process.Start(outputFilename);
-
-            Console.WriteLine($"{outputFilename} was successfully generated.");
         }
     }
 }

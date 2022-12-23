@@ -43,7 +43,7 @@ namespace Docati.Api.Demo
             using var builder = await DocBuilder.ForTemplateAsync("Template.docx");
 
             // Generate the document using the builder and passing the data for the dynamic fields (Docati placeholders)
-            using var doc = await builder.BuildAsync(data, DataFormat.Xml, docFormat);
+            using var doc = await builder.BuildAsync(data, DataFormat.Xml, docFormat); // When using free license, this will take 2 sec. Request a trial license to remove this limitation.
 
             // doc now contains the final document, so let's write it to disk
             using (var outputStream = File.OpenWrite(outputFilename))

@@ -25,10 +25,6 @@ namespace Docati.Api.Demo
             // limitations, please don't hesitate to contact us at support@docati.com and request a trial license.
             License.ApplyLicense("free"); // Check https://www.docati.com/pricing for more licensing details
 
-            // The EmbeddedResourceProvider is used, since it's able to load templates (and whatever resources they need) from resources
-            // embedded in this assembly. It derives from the standard ResoureProvider which supports loading from disk, network-folders
-            // and web/http addresses.
-
             // Set the desired output format (Word, PDF or XPS) -- XPS only works when targeting .NET Full framework (4.6.1 or later), not on .NET Core
             var docFormat = DocumentFileFormat.PDF;
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
@@ -36,14 +32,14 @@ namespace Docati.Api.Demo
             outputFilename = Path.Combine(outputFolder, outputFilename);
 
             // Just like the license file, the data file is loaded from embedded resource as well. This can of course be any stream
-            using var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml");
+            using var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.json");
 
             // Although this code generates a single document, the created DocBuilder can be reused to create multiple documents. It will cache all loaded templates,
             // so they do not need to be loaded for every call to BuildAsync.
             using var builder = await DocBuilder.ForTemplateAsync("Template.docx");
 
             // Generate the document using the builder and passing the data for the dynamic fields (Docati placeholders)
-            using var doc = await builder.BuildAsync(data, DataFormat.Xml, docFormat); // When using free license, this will take 2 sec. Request a trial license to remove this limitation.
+            using var doc = await builder.BuildAsync(data, outputFormat: docFormat); // When using free license, this will take 2 sec. Request a trial license to remove this limitation.
 
             // doc now contains the final document, so let's write it to disk
             using (var outputStream = File.OpenWrite(outputFilename))

@@ -16,13 +16,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="data.xml" />
+		<None Remove="data.json" />
 		<None Remove="License.lic" />
 		<None Remove="Template.docx" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="data.xml" />
+		<EmbeddedResource Include="data.json" />
 		<EmbeddedResource Include="License.lic" />
 		<EmbeddedResource Include="Template.docx" />
 	</ItemGroup>

@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFrameworks>net461;net6.0</TargetFrameworks>
+		<TargetFrameworks>net461;net7.0</TargetFrameworks>
 		<RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
 	    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
@@ -11,7 +11,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-	    <PackageReference Include="Docati.Api" Version="6.1.5272-beta" />
+	    <PackageReference Include="Docati.Api" Version="6.1.5922-beta" />
 	    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.0" />
 	</ItemGroup>
 

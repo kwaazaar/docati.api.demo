@@ -42,16 +42,19 @@ namespace Docati.Api.Demo
             using var doc = await builder.BuildAsync(data, outputFormat: docFormat); // When using free license, this will take 2 sec. Request a trial license to remove this limitation.
 
             // doc now contains the final document, so let's write it to disk
-            using (var outputStream = File.OpenWrite(outputFilename))
-                await doc.CopyToAsync(outputStream); // Check your bin/debug folder!
+            using var outputStream = File.OpenWrite(outputFilename);
+            await doc.CopyToAsync(outputStream); // Check your bin/debug folder!
 
+            // The file created successfully, so you can locate the file yourself in the bin/Debug folder and open it manually.
             Console.WriteLine($"{outputFilename} was successfully generated.");
 
+#if NET461
             // Now try to load the generated document with the default program for the file extension
+            // This only works on .NET Full framework (4.6.1).
             // This will fail if you don't have Word, Adobe Reader, etc installed.
-            // The file created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 Process.Start(outputFilename);
+#endif
         }
     }
 }

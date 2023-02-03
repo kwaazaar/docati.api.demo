@@ -1,0 +1,10 @@
+{
+  "person": {
+    "emailAddress": "j.doe@example.com",
+    "formattedName": "John Doe",
+    "course": {
+      "name": "Generating documents with Docati v6",
+      "score": 7.35
+    }
+  }
+}

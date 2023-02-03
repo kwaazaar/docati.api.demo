@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Docati.Api.Demo
 {
     class Program
     {
-        static void Main(string[] args)
+        async static Task Main(string[] args)
         {
             /*
             // The license is included in this project is an embedded resource (build-action). Make sure you replace it with your own.
@@ -24,41 +25,36 @@ namespace Docati.Api.Demo
             // limitations, please don't hesitate to contact us at support@docati.com and request a trial license.
             License.ApplyLicense("free"); // Check https://www.docati.com/pricing for more licensing details
 
-            // The EmbeddedResourceProvider is used, since it's able to load templates (and whatever resources they need) from resources
-            // embedded in this assembly. It derives from the standard ResoureProvider which supports loading from disk, network-folders
-            // and web/http addresses.
-            var resourceProvider = new EmbeddedResourceProvider();
-
             // Set the desired output format (Word, PDF or XPS) -- XPS only works when targeting .NET Full framework (4.6.1 or later), not on .NET Core
             var docFormat = DocumentFileFormat.PDF;
             var outputFilename = "TemplateResult." + (docFormat == DocumentFileFormat.Word ? "docx" : docFormat.ToString());
-            if (args.Length > 0) // Outputfolder specified
-            {
-                outputFilename = Path.Combine(args[0], outputFilename);
-            }
+            var outputFolder = args.Length > 0 ? args[0] : Environment.CurrentDirectory;
+            outputFilename = Path.Combine(outputFolder, outputFilename);
 
-            // A memorystream is defined to hold the final document
-            using (var doc = new MemoryStream())
-            {
-                string password = null; // Specify a password to encrypt the final document (password is required to open the document)
+            // Just like the license file, the data file is loaded from embedded resource as well. This can of course be any stream
+            using var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.json");
 
-                // Although this code generates a single document, the created DocBuilder can be reused to create multiple documents. It will cache all loaded templates,
-                // so they do not need to be loaded for every call to Build.
-                using (var builder = new DocBuilder("Template.docx", resourceProvider))
-                using (var data = Assembly.GetExecutingAssembly().GetManifestResourceStream("Docati.Api.Demo.data.xml")) // Just like the license file, the data file is loaded from embedded resource as well
-                    builder.Build(data, DataFormat.Xml, doc, null, docFormat, password);
+            // Although this code generates a single document, the created DocBuilder can be reused to create multiple documents. It will cache all loaded templates,
+            // so they do not need to be loaded for every call to BuildAsync.
+            using var builder = await DocBuilder.ForTemplateAsync("Template.docx");
 
-                // doc now contains the final document, so let's write it to disk
-                File.WriteAllBytes(outputFilename, doc.ToArray()); // Check your bin/debug folder!
-            }
+            // Generate the document using the builder and passing the data for the dynamic fields (Docati placeholders)
+            using var doc = await builder.BuildAsync(data, outputFormat: docFormat); // When using free license, this will take 2 sec. Request a trial license to remove this limitation.
 
+            // doc now contains the final document, so let's write it to disk
+            using var outputStream = File.OpenWrite(outputFilename);
+            await doc.CopyToAsync(outputStream); // Check your bin/debug folder!
+
+            // The file created successfully, so you can locate the file yourself in the bin/Debug folder and open it manually.
+            Console.WriteLine($"{outputFilename} was successfully generated.");
+
+#if NET461
             // Now try to load the generated document with the default program for the file extension
+            // This only works on .NET Full framework (4.6.1).
             // This will fail if you don't have Word, Adobe Reader, etc installed.
-            // The file created successfully however, so you can locate the file yourself in the bin/Debug folder and open it manually.
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 Process.Start(outputFilename);
-
-            Console.WriteLine($"{outputFilename} was successfully generated.");
+#endif
         }
     }
 }
